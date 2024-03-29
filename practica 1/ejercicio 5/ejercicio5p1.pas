@@ -93,8 +93,8 @@ begin
   while(not eof(a))do
     begin
       read(a,c);
-      writeln(txt, c.cod, c.precio, c.marca);
-      writeln(txt, c.sDisponible, c.sMinimo, c.descripcion);
+      writeln(txt, c.cod,' ', c.precio,' ', c.marca);
+      writeln(txt, c.sDisponible,' ', c.sMinimo,' ', c.descripcion);
       writeln(txt, c.nombre);
     end;
 end;

@@ -70,7 +70,7 @@ begin
   rewrite(d);
   while (not eof(carga))do
     begin
-      readln(carga,i.nombre);
+      readln(carga,i.codigo);
       readln(carga,i.cursada);
       readln(carga,i.finall);
       write(d,i);
@@ -79,8 +79,17 @@ begin
   close(carga);
 end; 
 
+{procedimineto para leer el detalle }
+procedure leer(var reg : info ; var detalle : adetalle);
+begin
+  if (not eof(detalle))then
+    read(detalle,reg)
+  else
+    reg.codigo := valorAlto;
+end;
+
+
 {procedure leer para el detalle }
-{aca si se repite el alumno en el detalle , no acumulo (while (act = detalle.nombre) deberia hacerlo ?)}
 procedure actualizarMaestro(var maestro: amaestro; var detalle: adetalle);
 var
   act : info;
@@ -97,19 +106,20 @@ begin
         begin
           read(maestro,act2);
         end; 
-      {me fijo que debo sumar}{aca preguntar si esta bien con un char / tambien si no se modifica y se escribe igual (mejorar esa parte) }
-      if (act.cursada = "v")then act2.cursadasA:= act2.cursadasA + 1; 
-      if (act.finall = "v")then 
+      while (act.codigo = act2.codigo) do
         begin
-          act2.materiasA := act2.materiasA + 1;
-          act2.cursadasA:= act2.cursadasA - 1
+          {me fijo que debo sumar}{aca preguntar si esta bien con un char / tambien si no se modifica y se escribe igual (mejorar esa parte) }
+          if (act.cursada = 'v')then act2.cursadasA:= act2.cursadasA + 1; 
+          if (act.finall = 'v')then 
+            begin
+              act2.materiasA := act2.materiasA + 1;
+              act2.cursadasA:= act2.cursadasA - 1
+            end; 
+          leer(act,detalle)
         end; 
-      if ( (act.cursada = "v") or (act.finall = "v")) then
-        begin
-          {seek(maestro, filepos(maestro)-1); no deberia hacerlo xq ya estoy en la posicion}
-          write(maestro,act2);
-        end; 
-      leer(act,detalle);
+      {me posiciono en el registro correcto del archivo}
+      seek(maestro,filepos(maestro)-1);
+      write(maestro,act2); 
     end; 
   close(detalle);
   close(maestro);
@@ -120,13 +130,13 @@ var
   nuevo : text;
   a: alumno; 
 begin
-  assign(nuevo, 'alumnos.txt');
+  assign(nuevo, 'resultadoFinal.txt');
   rewrite(nuevo);
   reset(maestro);
   while (not eof(maestro)) do
     begin
       read(maestro,a);
-      writeln(nuevo, a.codigo, '-', a.apellido,'-', a.nombre,'-', a.cursadasA,'-',a.materiasA)
+      if (a.materiasA > a.cursadasA)then writeln(nuevo, a.codigo, '-', a.apellido,'-', a.nombre,'-', a.cursadasA,'-',a.materiasA)
     end;
   close(nuevo);
   close(maestro);
@@ -137,11 +147,12 @@ var
   maestro : amaestro;
   detalle : adetalle; 
 BEGIN
-  assign(maestro,'nombre');
-  assign(detalle,'nombree');
+  assign(maestro,'maestro');
+  assign(detalle,'detalle');
   crearMaestro(maestro);
   crearDetalle(detalle);
   actualizarMaestro(maestro,detalle);
   exportarTxt(maestro);
+  writeln('el programa finalizo');
 END.
 

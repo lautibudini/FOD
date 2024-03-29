@@ -25,10 +25,10 @@ type
   archivo = file of empleado; 
   
 {esto me sirve pra poder reemplazar cuando pregunta por eof y tiene un corte de control}
-procedure leer(var x : archivo; var dato: integer);
+procedure leer(var x : archivo; var dato: empleado);
 begin
   if (not eof(x))then
-    read(x,dato);
+    read(x,dato)
   else
     dato.codigo:= valorAlto; 
 end;
@@ -45,8 +45,8 @@ begin
   while (e.codigo <> valorAlto)do  { verifica que no se termine detalle (while (not eof(d))do)}
     begin
       aux:= 0; 
-      act:= e.codigo; 
-      act:= e.nombre; 
+      act.codigo := e.codigo; 
+      act.nombre := e.nombre; 
       while ( e.codigo = act.codigo)do  {mientras que sea igual a mi codigo itera sumando la comision}
         begin                  {no pregunta si se termino el archivo porq con el proc leer si es eof no lo lee y tira valorAlto}
           aux:= aux + e.comision; 

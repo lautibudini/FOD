@@ -3,26 +3,24 @@ cada alumno se dispone de su código de alumno, apellido, nombre, cantidad de ma
 (cursadas) aprobadas sin final y cantidad de materias con final aprobado. Además, se tiene
 un archivo detalle con el código de alumno e información correspondiente a una materia
 (esta información indica si aprobó la cursada o aprobó el final).
+* 
 Todos los archivos están ordenados por código de alumno y en el archivo detalle puede
 haber 0, 1 ó más registros por cada alumno del archivo maestro. Se pide realizar un
 programa con opciones para:
+
+a. Actualizar el archivo maestro de la siguiente manera:
+  
+  i.Si aprobó el final se incrementa en uno la cantidad de materias con final aprobado,
+    y se decrementa en uno la cantidad de materias sin final aprobado.
+
+  ii.Si aprobó la cursada se incrementa en uno la cantidad de materias aprobadas sin final.
+
+b. Listar en un archivo de texto aquellos alumnos que tengan más materias con finales
+aprobados que materias sin finales aprobados. Teniendo en cuenta que este listado
+es un reporte de salida (no se usa con fines de carga), debe informar todos los
+campos de cada alumno en una sola línea del archivo de texto.
 * 
-a. Crear el archivo maestro a partir de un archivo de texto llamado “alumnos.txt”.
-* 
-b. Crear el archivo detalle a partir de en un archivo de texto llamado “detalle.txt”.
-* 
-c. Listar el contenido del archivo maestro en un archivo de texto llamado “reporteAlumnos.txt”.
-* 
-d. Listar el contenido del archivo detalle en un archivo de texto llamado “reporteDetalle.txt”.
-* 
-e. Actualizar el archivo maestro de la siguiente manera:
-   i.Si aprobó el final se incrementa en uno la cantidad de materias con final aprobado.
-   ii.Si aprobó la cursada se incrementa en uno la cantidad de materias aprobadas sin final.
-   * 
-f. Listar en un archivo de texto los alumnos que tengan más de cuatro materias
-con cursada aprobada pero no aprobaron el final. Deben listarse todos los campos.
-* 
-NOTA: Para la actualización del inciso e) los archivos deben ser recorridos sólo una vez.}
+NOTA: Para la actualización del inciso a) los archivos deben ser recorridos sólo una vez}
 program Facultad;
 const
   valorAlto = 9999;
@@ -82,7 +80,7 @@ begin
 end; 
 
 {procedure leer para el detalle }
-
+{aca si se repite el alumno en el detalle , no acumulo (while (act = detalle.nombre) deberia hacerlo ?)}
 procedure actualizarMaestro(var maestro: amaestro; var detalle: adetalle);
 var
   act : info;
@@ -99,9 +97,13 @@ begin
         begin
           read(maestro,act2);
         end; 
-      {me fijo que debo sumar}{aca preguntar si esta bien con un char y tambien si no se modifica y se escribe igual (mejorar esa parte) }
+      {me fijo que debo sumar}{aca preguntar si esta bien con un char / tambien si no se modifica y se escribe igual (mejorar esa parte) }
       if (act.cursada = "v")then act2.cursadasA:= act2.cursadasA + 1; 
-      if (act.finall = "v")then act2.materiasA := act2.materiasA + 1;
+      if (act.finall = "v")then 
+        begin
+          act2.materiasA := act2.materiasA + 1;
+          act2.cursadasA:= act2.cursadasA - 1
+        end; 
       if ( (act.cursada = "v") or (act.finall = "v")) then
         begin
           {seek(maestro, filepos(maestro)-1); no deberia hacerlo xq ya estoy en la posicion}
@@ -113,7 +115,22 @@ begin
   close(maestro);
 end; 
 
-
+procedure exportarTxt( var maestro : amaestro);
+var
+  nuevo : text;
+  a: alumno; 
+begin
+  assign(nuevo, 'alumnos.txt');
+  rewrite(nuevo);
+  reset(maestro);
+  while (not eof(maestro)) do
+    begin
+      read(maestro,a);
+      writeln(nuevo, a.codigo, '-', a.apellido,'-', a.nombre,'-', a.cursadasA,'-',a.materiasA)
+    end;
+  close(nuevo);
+  close(maestro);
+end;
 
 
 var 
@@ -124,7 +141,7 @@ BEGIN
   assign(detalle,'nombree');
   crearMaestro(maestro);
   crearDetalle(detalle);
-  {modulo c y d . tengo q exportar a un archivo de texto ? elem por elem ?}
   actualizarMaestro(maestro,detalle);
+  exportarTxt(maestro);
 END.
 

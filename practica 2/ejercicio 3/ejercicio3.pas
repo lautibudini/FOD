@@ -115,10 +115,11 @@ var
 begin
   reset(maestro);
   reset(detalle);
-  read(maestro,act);
+  //read(maestro,act); es mejor si va dentro del while
   leer(detalle,act2);
   while (act2.codigo <> valorAlto)do
     begin
+      read(maestro,act); debe ir aca(?
       // busco en el maestro el producto
       while (act2.codigo <> act.codigo)do
         begin

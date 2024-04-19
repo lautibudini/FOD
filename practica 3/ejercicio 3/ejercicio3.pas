@@ -64,6 +64,13 @@ type
   
 
 
+procedure leer(var a : archivo ; var reg : novela );
+begin
+  if (not eof(a))then
+    read(a,reg)
+  else
+    reg.cod:= valorAlto; 
+end; 
 
 
 procedure leerNombre(var reg: novela);
@@ -159,6 +166,7 @@ procedure opcion2(var a: archivo);
     valor: integer; 
   begin
     valor := 1; // por defecto
+    // hacemos un while ya que podrian modificar mas de una cosa.
     while (valor <> 0)do
       begin
         writeln ('SELECCIONE QUE DESEA MODIFICAR DE LA NOVELA : ');
@@ -196,6 +204,8 @@ var
   nro:integer; 
 begin
   reset(a);
+  // me posiciono en el primer reg valido (no es necesario)
+  seek(a,1);
   leer(a,reg);
   writeln('ingrese el codigo de novela a modificar : ');
   readln(nro);
@@ -206,6 +216,7 @@ begin
   // puedo encontrarlo o no entonces : 
   if (reg.cod = nro)then
     begin
+      preguntar(reg);
       seek(a,filepos(a)-1);
       write(a,reg);
     end
@@ -221,22 +232,26 @@ end;
 procedure opcion3(var a: archivo);
 var
   reg,aux: novela; 
-  num: integer; 
+  num,inegativo: integer; 
 begin
   reset(a);
   writeln('ingrese el codigo de novela a borrar : ');
   readln(num);
-  read(a,aux); //leo la posicion cero
-  leer(a,reg);
+  read(a,aux); //leo la posicion cero para poder modificar
+  leer(a,reg); //arranco a leer los registros del archivo
   while((reg.cod <> valorAlto) and (reg.cod <> num))do
     begin
       leer(a,reg);
     end; 
   if (reg.cod = num)then
     begin
+      //en la posicion a borrar escribo el reg del indice prox y queda borrado logicamente
       seek(a,filepos(a)-1);
+      inegativo:= filepos(a)*-1; // guardo el indice en negativo para luego escribirlo en la cabecera
       write(a,aux);
+      //en la cabecera de mi archivo, dejo los datos con el indice negativo en donde podremos hacer un alta 
       seek(a,0);
+      reg.cod:= inegativo; //paso el indice a negativo 
       write(a,reg);
     end
   else
@@ -257,26 +272,52 @@ begin
   assign(txt,'novelas.txt');
   rewrite(txt);
   reset(a);
+  //me posiciono en el primer registro valido , no el primero
+  seek(a,1);
   leer(a,reg);
   while (reg.cod <> valorAlto)do
     begin
       if (reg.cod > 0) then
-	    writeln (txt,'CODIGO: ',reg.cod,' NOMBRE: ',reg.nombre,' GENERO: ',reg.genero,' DIRECTOR: ',reg.director,' DURACION: ',reg.duracion,' PRECIO: ',reg.precio:1:1)
+	    writeln(txt,'CODIGO: ',reg.cod,' NOMBRE: ',reg.nombre,' GENERO: ',reg.genero,' DIRECTOR: ',reg.director,' DURACION: ',reg.duracion,' PRECIO: ',reg.precio)
       else
-	    writeln (arcTxt,'Espacio libre'); 
+	    writeln(txt,'Espacio libre'); 
 	  leer(a,reg);
     end; 
   close(txt);
   close(a);
 end; 
 
-
+procedure menu(var a: archivo);
+var
+  num: integer; 
+begin
+  num:=1; 
+  writeln('BIENVENIDO AL MENU PRINCIPAL');
+  while (num <> 0) do
+    begin
+      writeln('INGRESE LA OPCION QUE DESEA REALIZAR : ');
+      writeln('1- SI desea agregar una novela nueva al archivo : ');
+      writeln('2- SI desea modificar los datos de una novela : ');
+      writeln('3- SI desea eliminar una novela del archivo ');   
+      writeln('0- Si desea salir del menu : ');
+      readln(num);
+      case num of 
+      1: opcion1(a);
+      2: opcion2(a);
+      3: opcion3(a);
+      0: writeln('MENU FINALIZADO ');
+      else
+        writeln('Opcion  incorrecta ');
+      end; 
+    end;
+  exportar(a); 
+end; 
 
 
 var 
-
+  a: archivo; 
 BEGIN
-	
-	
+  main(a);
+  menu(a);
 END.
 

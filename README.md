@@ -16,8 +16,8 @@
  > Solucion: 
   Division y promocion, lo que hacemos en  juntar todos los elementos junto con el nuevo, luego de esto dividimos creando un nuevo nodo dejando la mitad entera en el primer nodo y la otra mitad en el nuevo. Luego de esto hacemos la promocion del primer elemento del primer nodo (por convención). Esto puede propagar el overflow al nodo padre pero se trata de la misma forma. EJ: 
  
-![imagen 1 ](../images-readme\Captura de pantalla 2024-05-14 215545.png)
-![imagen 2](images-readme\Captura de pantalla 2024-05-14 215621.png)
+![imagen 1 ](../images-readme/Captura de pantalla 2024-05-14 215545.png)
+![imagen 2](images-readme/Captura de pantalla 2024-05-14 215621.png)
 
 
   

@@ -1,6 +1,6 @@
-## Resumen Practico 
+## Resumen Practico 📝
 
-### Arboles b
+### Arboles B 🌳
 
  - Cosas a tener en cuenta: 
  >      1. Cada nodo del árbol puede contener como máximo M descendientes directos (hijos) y M-1 elementos.
@@ -11,10 +11,10 @@
  - Conceptos : 
 
  1. Overflow : 
- > Esto pasa al momento de dar de alta un elemento en el arbol y este debe ir en un nodo y no entra, a esto se le llama overflow El nodo no posee espacio para otro elemento.
+ > Esto pasa al momento de dar de alta un elemento en el arbol,donde este elem debe ir en un nodo y no entra, a esto se le llama overflow. El nodo no posee espacio para otro elemento.
  
  > Solucion: 
-  Division y promocion, lo que hacemos en  juntar todos los elementos junto con el nuevo, luego de esto dividimos creando un nuevo nodo dejando la mitad entera en el primer nodo y la otra mitad en el nuevo. Luego de esto hacemos la promocion del primer elemento del primer nodo (por convención). Esto puede propagar el overflow al nodo padre pero se trata de la misma forma. EJ: 
+  Division y promocion, lo que hacemos es juntar todos los elementos junto con el nuevo, luego de esto dividimos creando un nuevo nodo dejando la mitad entera en el primer nodo y la otra mitad en el nuevo. Luego de esto hacemos la promocion del primer elemento del primer nodo (por convención). Esto puede propagar el overflow al nodo padre pero se trata de la misma forma. EJ: 
 
 Acá al agregar el 80, se genera overflow en el nodo (1) , por lo que debemos dividir creando un nuevo nodo y promocionando el primer elemento de ese nuevo nodo. (75,80) (88,91).
 ![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-14%20215545.png)
@@ -29,36 +29,59 @@ Una vez que promocionamos en este caso el elem = 88 al nodo (2) debemos acomodar
 
 > En caso que el nodo a eliminar sea hoja y eliminando ese elemento posee los minimos elementos ([M/2]-1), se elimina sin problema. Caso contrario se produce underflow.
 
+
 - Underflow: 
 > Primero se intenta redistribuir con un hermano adyacente, es decir se junta el hermano adyacente, elemento 'padre' y el que produce undeflow y se hace un tipo de 'division y promoción' (todo en el nodo que genera undeflow). 
 
 > Si la redistribución no es posible, entonces se debe fusionar con el hermano adyacente, juntando los valores y reacomodando todo. 
+- Politicas de underflow:
+ > . Política izquierda: se intenta redistribuir con el hermano adyacente izquierdo, si no es posible, se fusiona con hermano adyacente izquierdo.
+ 
+ >. Política derecha: se intenta redistribuir con el hermano adyacente derecho, si no es posible, se fusiona con hermano adyacente derecho.
+ 
+ > . Política izquierda o derecha: se intenta redistribuir con el hermano adyacente izquierdo, si no es posible,  se intenta con el hermano adyacente derecho, si tampoco es posible, se fusiona con hermano adyacente izquierdo.
+
+ >. Política derecha o izquierda: se intenta redistribuir con el hermano adyacente derecho, si no es posible,  se intenta con el hermano adyacente izquierdo, si tampoco es posible, se fusiona con hermano adyacente derecho.
+
+> Casos especiales: en cualquier política si se tratase de un nodo hoja de un extremo del árbol debe intentarse redistribuir con el hermano adyacente que el mismo posea si no se puede aplicar su politica especificada.
+
+
+
 
 ejemplos: 
-1. redistribuir politica der o izq underflow: 
+- Redistribuir politica der o izq underflow: 
 
 > La eliminación de la clave 70 en el nodo 1 produce underflow.
 Se intenta redistribuir con el hermano derecho. No es posible ya que el nodo contiene la cantidad mínima de claves. 
 Se intenta redistribuir con el hermano izquierdo. La operación es posible y se rebalancea la carga entre los nodos 1 y 0.
 
-![](859)
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-14%20224859.png)
 
-![](912)
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-14%20224912.png)
 
-2. concatenar misma politica : 
+-  Concatenar con misma politica : 
+> el 86, no se puede balancear con su adyacente entonces se fusiona el nodo en underflow con su adyacente. Así liberando el nodo (5) y solucionando el undeflow generado.
 
-![](416)
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-14%20225416.png)
 
-![](436)
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-14%20225436.png)
 
-> otro ejemplo donde se propaga el underflow y llega hasta la raiz: 
+> Otro ejemplo donde se propaga el underflow y llega hasta la raiz, donde se deben reacomodar los hijos : 
+> al querer elimarse el elem(95) genera underflow, y al no poder redistribuir, concatenamos en el nodo mismo(4) los elementos (96,120) Liberando el nodo(3) pero generando undeflow en el nodo 6, entonces concatenamos el padre y hermano adyacente en el nodo(2)? y reacomodando los hijos.
 
-![](520)
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-14%20225520.png)
 
-![](534)
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-14%20225534.png)
+
+3. Escrituras y lecturas:
+   > Es muy importante el orden de lecturas y escrituras.
+
+   > En las lecturas se arranca desde la raiz, y puede variar en casos de tener que leer mas nodos por alguna alta o baja ( un nodo no puede leerse dos veces, ya con leerlo una vez queda ).
+
+   > Las escrituras siempre son de derecha a izquierda y desde el ultimo nivel a la raiz. 
 
 
-
+..... En proceso 🙇🏻🙇🏻
 
  
 

@@ -24,6 +24,39 @@ Una vez que promocionamos en este caso el elem = 88 al nodo (2) debemos acomodar
 ![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-14%20215621.png)
 
 
+2. Bajas: 
+> Si la clave a eliminar no está en una hoja, se debe reemplazar con la menor clave del subárbol derecho.
+
+> En caso que el nodo a eliminar sea hoja y eliminando ese elemento posee los minimos elementos ([M/2]-1), se elimina sin problema. Caso contrario se produce underflow.
+
+- Underflow: 
+> Primero se intenta redistribuir con un hermano adyacente, es decir se junta el hermano adyacente, elemento 'padre' y el que produce undeflow y se hace un tipo de 'division y promoción' (todo en el nodo que genera undeflow). 
+
+> Si la redistribución no es posible, entonces se debe fusionar con el hermano adyacente, juntando los valores y reacomodando todo. 
+
+ejemplos: 
+1. redistribuir politica der o izq underflow: 
+
+> La eliminación de la clave 70 en el nodo 1 produce underflow.
+Se intenta redistribuir con el hermano derecho. No es posible ya que el nodo contiene la cantidad mínima de claves. 
+Se intenta redistribuir con el hermano izquierdo. La operación es posible y se rebalancea la carga entre los nodos 1 y 0.
+
+![](859)
+
+![](912)
+
+2. concatenar misma politica : 
+
+![](416)
+
+![](436)
+
+> otro ejemplo donde se propaga el underflow y llega hasta la raiz: 
+
+![](520)
+
+![](534)
+
 
 
 

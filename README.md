@@ -1,4 +1,4 @@
-## Resumen Practico 📝
+## Resumen para el parcial (Practico)  🙇🏻📝
 
 ### Arboles B 🌳
 
@@ -81,9 +81,8 @@ Se intenta redistribuir con el hermano izquierdo. La operación es posible y se 
    > Las escrituras siempre son de derecha a izquierda y desde el ultimo nivel a la raiz. 
 
 
-..... En proceso 🙇🏻🙇🏻
 
-### Arboles B+ 
+### Arboles B+ 🌳➕
 
 cosas a tener en cuenta : 
 
@@ -101,7 +100,19 @@ manejo de altas y bajas :
 
 > Lo que se hace es como siempre, se divide el nodo en dos, dejando la parte entera en el nodo original y la otra en un nodo nuevo. Subiendo una COPIA del valor menor del segundo nodo, se sube la copia no el dato original .
 
-imagenes--------------------
+En este ejemplo se ve como se esta generando overflow y como es manejado al momento de querer insertar el elemento 8.
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120221.png)
+
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120238.png)
+
+
+En este otro ejemplo se ve como se sube una nueva copia a la raiz, luego de generar un nuevo nodo ya que se genero overflow al momento de insertar el 2. (lo escrito en azul no es de esto es otra cosa)
+
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120306.png)
+
+
+se divide y promociona una copia del menor del nuevo nodo a la raiz.
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120316.png)
 
 2. Bajas.
 
@@ -121,11 +132,41 @@ POLITICAS DE RESOLUCION DE UNDERFLOW:
 
 >Política derecha o izquierda: se intenta redistribuir con el hermano adyacente derecho, si no es posible,  se intenta con el hermano adyacente izquierdo, si tampoco es posible, se fusiona con hermano adyacente derecho
 
-ejemplos de underflow........
+ejemplos de underflow : 
+
+En este ejemplo al querer borrar el elemento 121 se genera underflow en el nodo 5, entonces se intenta redistribuir primero con el hermano nodo 4 :
+
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120358.png)
+
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120412.png)
 
 
 
- 
+otro ejemplo : 
+
+Un ejemplo donde se propaga el underflow y  no disminuye la altura del arbol: 
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120420.png)
+
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120443.png)
+
+
+Un ejemplo donde al querer eliminar la calve 50, se propaga el underflow y disminuye la altura del arbol: 
+
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120513.png)
+
+![](https://github.com/lautibudini/FOD/blob/main/images-readme/Captura%20de%20pantalla%202024-05-20%20120520.png)
+
+
+#### Lecturas y Escrituras.
+se manejan de igual forma que los arboles B: 
+
+> Es muy importante el orden de lecturas y escrituras.
+
+> En las lecturas se arranca desde la raiz, y puede variar en casos de tener que leer mas nodos por alguna alta o baja ( un nodo no puede leerse dos veces, ya con leerlo una vez queda ).
+
+> Las escrituras siempre son de derecha a izquierda y desde el ultimo nivel a la raiz. 
+
+ ..... En proceso 🙇🏻🙇🏻
 
 
 

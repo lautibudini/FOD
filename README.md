@@ -83,6 +83,48 @@ Se intenta redistribuir con el hermano izquierdo. La operación es posible y se 
 
 ..... En proceso 🙇🏻🙇🏻
 
+### Arboles B+ 
+
+cosas a tener en cuenta : 
+
+las propiedades de cada nodo.........
+
+> La operación de búsqueda en árboles B+ es similar a la operación de búsqueda en árboles B. El proceso es simple, ya que todas las claves se encuentran en las hojas, deberá continuarse con la búsqueda hasta el último nivel del árbol donde esta la clave real.
+
+manejo de altas y bajas :
+
+1. Altas.
+
+> como se menciono los datos reales son los que estan al nivel de las hojas, y los demas son copias de los datos. Al momento de insertar un elemento este se hace al nivel de hoja, pudiendo generar overflow.
+
+#### Overflow manejo.
+
+> Lo que se hace es como siempre, se divide el nodo en dos, dejando la parte entera en el nodo original y la otra en un nodo nuevo. Subiendo una COPIA del valor menor del segundo nodo, se sube la copia no el dato original .
+
+imagenes--------------------
+
+2. Bajas.
+
+#### Underflow manejo.
+
+> Si al eliminar una clave, la cantidad de llaves es menor a [M/2]-1, entonces debe realizarse una redistribución de claves, tanto en el índice como en las páginas hojas.
+
+> Si la redistribución no es posible, entonces debe realizarse una fusión entre los nodos.
+
+POLITICAS DE RESOLUCION DE UNDERFLOW: 
+
+>Política izquierda: se intenta redistribuir con el hermano adyacente izquierdo, si no es posible, se fusiona con hermano adyacente izquierdo.
+
+>Política derecha: se intenta redistribuir con el hermano adyacente derecho, si no es posible, se fusiona con hermano adyacente derecho.
+
+>Política izquierda o derecha: se intenta redistribuir con el hermano adyacente izquierdo, si no es posible,  se intenta con el hermano adyacente derecho, si tampoco es posible, se fusiona con hermano adyacente izquierdo.
+
+>Política derecha o izquierda: se intenta redistribuir con el hermano adyacente derecho, si no es posible,  se intenta con el hermano adyacente izquierdo, si tampoco es posible, se fusiona con hermano adyacente derecho
+
+ejemplos de underflow........
+
+
+
  
 
 

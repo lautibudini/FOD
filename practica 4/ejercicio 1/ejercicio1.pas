@@ -51,8 +51,8 @@ Type
 //Arbol ....
   
   tnodo = record
-    hijos: array[1..M-1] of alumno;
-    elems: array[1..M] of integer; 
+    hijos: array[1..M] of alumno;
+    claves: array[1..M-1] of integer; 
     cantReg: integer;  
   end; 
   

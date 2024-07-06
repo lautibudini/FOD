@@ -1,4 +1,44 @@
-## Resumen para el parcial (Practico)  🙇🏻📝
+<h1 align="center"> Fundamentos y Organización de Datos 🗃️ </h1>
+
+<div align="center">
+    <img align="center" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWVidG00cTA2OWprYjN4cnF1MDUydnV4NWpzcHJtbW1vNHY4YXpnZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4pTfx2qLszoacZRS/giphy.webp" />
+</div>
+<br>
+<br>
+
+<h4 align="center"> 🌞 Material de la materia : </h4>
+
+- 🤓​ Clases Teoricas :
+   > [Teorias](/Teorias)
+
+- 🗂️​ Cinco Practicas.
+   > [Practica 1](/practica%201)
+   >
+   > [Practica 2](/practica%202)
+   > 
+   > [Practica 3](/practica%203)
+   >
+   > [Practica4](/practica%204)
+   > 
+   > [Practica 5]
+
+- 📄 Material para el Teorico :
+  > [teorico]
+
+
+
+
+
+
+
+
+
+
+
+
+<h1 align="center">  </h1>
+
+## Resumen para el parcial (Practico) arboles B y B+ : 🙇🏻📝
 
 ### Arboles B 🌳
 
